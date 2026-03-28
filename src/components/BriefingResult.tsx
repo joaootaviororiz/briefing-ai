@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Copy, Check, FileText, Lightbulb, MessageSquare, Share2, LayoutGrid } from "lucide-react";
+import { Copy, Check, FileText, Lightbulb, MessageSquare, Share2, MousePointerClick, Users, Heading } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
@@ -9,11 +9,13 @@ interface BriefingResultProps {
 }
 
 const sectionIcons: Record<string, React.ReactNode> = {
-  "resumo": <FileText className="h-5 w-5 text-primary" />,
-  "ideia": <Lightbulb className="h-5 w-5 text-accent" />,
-  "abordagem": <Share2 className="h-5 w-5 text-primary" />,
+  "título": <Heading className="h-5 w-5 text-primary" />,
+  "público": <Users className="h-5 w-5 text-accent" />,
+  "ideia": <Lightbulb className="h-5 w-5 text-primary" />,
+  "criativa": <Lightbulb className="h-5 w-5 text-primary" />,
   "copy": <MessageSquare className="h-5 w-5 text-accent" />,
-  "canais": <LayoutGrid className="h-5 w-5 text-primary" />,
+  "canais": <Share2 className="h-5 w-5 text-primary" />,
+  "call": <MousePointerClick className="h-5 w-5 text-accent" />,
 };
 
 function getIcon(title: string) {
@@ -33,7 +35,7 @@ function parseSections(text: string) {
     const headerMatch = line.match(/^#{1,3}\s+(.+)/);
     if (headerMatch) {
       if (current) sections.push(current);
-      current = { title: headerMatch[1].replace(/\*\*/g, ""), content: "" };
+      current = { title: headerMatch[1].replace(/\*\*/g, "").trim(), content: "" };
     } else if (current) {
       current.content += line + "\n";
     } else {
@@ -44,6 +46,53 @@ function parseSections(text: string) {
   }
   if (current) sections.push(current);
   return sections;
+}
+
+function renderContent(content: string) {
+  const trimmed = content.trim();
+  if (!trimmed) return null;
+
+  return trimmed.split("\n").map((line, i) => {
+    const boldMatch = line.match(/^\*\*(.+?)\*\*:?\s*(.*)/);
+    const numberedMatch = line.match(/^(\d+)\.\s+\*\*(.+?)\*\*:?\s*(.*)/);
+    const bulletMatch = line.match(/^[-•]\s+(.*)/);
+
+    if (numberedMatch) {
+      return (
+        <div key={i} className="mb-3 last:mb-0">
+          <span className="inline-flex items-center justify-center h-6 w-6 rounded-full bg-primary/10 text-primary text-xs font-bold mr-2">
+            {numberedMatch[1]}
+          </span>
+          <span className="font-semibold text-card-foreground">{numberedMatch[2]}</span>
+          {numberedMatch[3] && <span className="text-muted-foreground"> {numberedMatch[3]}</span>}
+        </div>
+      );
+    }
+
+    if (boldMatch) {
+      return (
+        <div key={i} className="mb-2 last:mb-0">
+          <span className="font-semibold text-card-foreground">{boldMatch[1]}</span>
+          {boldMatch[2] && <span className="text-muted-foreground"> {boldMatch[2]}</span>}
+        </div>
+      );
+    }
+
+    if (bulletMatch) {
+      return (
+        <div key={i} className="mb-1.5 last:mb-0 flex gap-2">
+          <span className="text-primary mt-1">•</span>
+          <span className="text-muted-foreground">{bulletMatch[1]}</span>
+        </div>
+      );
+    }
+
+    if (!line.trim()) return null;
+
+    return (
+      <p key={i} className="text-muted-foreground mb-1.5 last:mb-0">{line}</p>
+    );
+  });
 }
 
 export default function BriefingResult({ briefing }: BriefingResultProps) {
@@ -63,11 +112,11 @@ export default function BriefingResult({ briefing }: BriefingResultProps) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.1 }}
     >
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex items-center justify-between mb-6">
         <h2 className="text-xl font-semibold text-foreground font-display">Briefing Gerado</h2>
         <Button variant="outline" size="sm" onClick={handleCopy} className="gap-2">
           {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-          {copied ? "Copiado!" : "Copiar"}
+          {copied ? "Copiado!" : "Copiar tudo"}
         </Button>
       </div>
 
@@ -78,15 +127,17 @@ export default function BriefingResult({ briefing }: BriefingResultProps) {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.35, delay: i * 0.08 }}
-            className="rounded-xl border border-border bg-card p-5"
+            className="rounded-xl border border-border bg-card p-5 sm:p-6"
             style={{ boxShadow: "var(--shadow-card)" }}
           >
-            <div className="flex items-center gap-2 mb-3">
+            <div className="flex items-center gap-2.5 mb-4 pb-3 border-b border-border">
               {getIcon(section.title)}
-              <h3 className="font-semibold text-card-foreground font-display">{section.title}</h3>
+              <h3 className="font-semibold text-card-foreground font-display text-base">
+                {section.title}
+              </h3>
             </div>
-            <div className="text-sm text-muted-foreground leading-relaxed whitespace-pre-wrap">
-              {section.content.trim()}
+            <div className="text-sm leading-relaxed">
+              {renderContent(section.content)}
             </div>
           </motion.div>
         ))}
