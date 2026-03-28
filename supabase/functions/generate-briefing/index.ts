@@ -24,20 +24,23 @@ serve(async (req) => {
 
 Estruture o briefing com as seguintes seções (use cabeçalhos markdown ##):
 
-## Resumo da Campanha
-Uma visão geral concisa do que a campanha propõe.
+## Título da Campanha
+Crie um título criativo e memorável para a campanha.
 
-## Ideia Criativa Principal
-O conceito central que guiará toda a comunicação.
+## Público Resumido
+Descreva o público-alvo de forma concisa em 2-3 frases, incluindo perfil demográfico, comportamental e dores principais.
 
-## Sugestões de Abordagem
-3-4 estratégias práticas de como abordar o público.
+## Ideias Criativas
+Apresente exatamente 3 ideias criativas diferentes, numeradas (1, 2, 3). Cada ideia deve ter um nome curto e uma descrição de 2-3 frases explicando o conceito.
 
 ## Exemplos de Copy
-3 exemplos de textos prontos para usar no canal indicado.
+Escreva exatamente 2 exemplos de textos prontos para usar no canal ${mainChannel}. Cada copy deve ser realista e pronto para publicação.
 
-## Canais e Formatos Recomendados
-Sugestões de canais complementares e formatos de conteúdo ideais.
+## Sugestão de Canais
+Liste os canais recomendados (incluindo ${mainChannel} como principal) com uma breve justificativa para cada um. Sugira também formatos de conteúdo ideais para cada canal.
+
+## Call to Action
+Sugira 3 opções de call to action (CTA) claros e persuasivos que podem ser usados na campanha. Explique brevemente quando usar cada um.
 
 Seja criativo, prático e direto. Use linguagem profissional mas acessível.`;
 
