@@ -53,11 +53,12 @@ export default function Index() {
       </header>
 
       {/* Hero */}
-      <div className="py-10 sm:py-14 text-center px-4" style={{ background: "var(--gradient-hero)" }}>
+      <div className="py-10 sm:py-14 text-center px-4">
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
+          className="max-w-2xl mx-auto"
         >
           <h2 className="text-2xl sm:text-3xl font-bold text-foreground font-display mb-3">
             Briefings inteligentes para suas campanhas
