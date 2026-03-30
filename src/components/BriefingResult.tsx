@@ -142,6 +142,44 @@ export default function BriefingResult({ briefing }: BriefingResultProps) {
           </motion.div>
         ))}
       </div>
+
+      {/* Impacto da Ferramenta */}
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.35, delay: sections.length * 0.08 }}
+        className="rounded-xl border border-primary/20 bg-primary/5 p-5 sm:p-6 mt-4"
+      >
+        <div className="flex items-center gap-2.5 mb-4 pb-3 border-b border-primary/20">
+          <FileText className="h-5 w-5 text-primary" />
+          <h3 className="font-semibold text-card-foreground font-display text-base">
+            Impacto da Ferramenta
+          </h3>
+        </div>
+        <div className="text-sm leading-relaxed space-y-3">
+          <div className="flex gap-2">
+            <span className="text-primary font-bold">⏱</span>
+            <div>
+              <span className="font-semibold text-card-foreground">Tempo economizado:</span>
+              <span className="text-muted-foreground"> Redução de até 70% no tempo de criação de briefings — de horas para minutos.</span>
+            </div>
+          </div>
+          <div className="flex gap-2">
+            <span className="text-primary font-bold">🚀</span>
+            <div>
+              <span className="font-semibold text-card-foreground">Benefícios para o time:</span>
+              <span className="text-muted-foreground"> Mais tempo para estratégia e criatividade, menos retrabalho e maior produtividade nas entregas de campanhas.</span>
+            </div>
+          </div>
+          <div className="flex gap-2">
+            <span className="text-primary font-bold">🤝</span>
+            <div>
+              <span className="font-semibold text-card-foreground">Alinhamento entre equipes:</span>
+              <span className="text-muted-foreground"> Briefings padronizados garantem que todos — criativos, mídia e gestores — partam da mesma base de informação, reduzindo ruídos e retrabalho.</span>
+            </div>
+          </div>
+        </div>
+      </motion.div>
     </motion.div>
   );
 }
