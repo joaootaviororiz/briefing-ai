@@ -1,11 +1,13 @@
 import { motion } from "framer-motion";
-import { Copy, Check, FileText, Lightbulb, MessageSquare, Share2, MousePointerClick, Users, Heading } from "lucide-react";
+import { Copy, Check, FileText, Lightbulb, MessageSquare, Share2, MousePointerClick, Users, Heading, RefreshCw } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 
 interface BriefingResultProps {
   briefing: string;
+  onRegenerate?: () => void;
+  isRegenerating?: boolean;
 }
 
 const sectionIcons: Record<string, React.ReactNode> = {
