@@ -97,7 +97,7 @@ function renderContent(content: string) {
   });
 }
 
-export default function BriefingResult({ briefing }: BriefingResultProps) {
+export default function BriefingResult({ briefing, onRegenerate, isRegenerating }: BriefingResultProps) {
   const [copied, setCopied] = useState(false);
   const sections = parseSections(briefing);
 
@@ -114,12 +114,20 @@ export default function BriefingResult({ briefing }: BriefingResultProps) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.1 }}
     >
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
         <h2 className="text-xl font-semibold text-foreground font-display">Briefing Gerado</h2>
-        <Button variant="outline" size="sm" onClick={handleCopy} className="gap-2">
-          {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-          {copied ? "Copiado!" : "Copiar tudo"}
-        </Button>
+        <div className="flex gap-2">
+          {onRegenerate && (
+            <Button variant="default" size="sm" onClick={onRegenerate} disabled={isRegenerating} className="gap-2">
+              <RefreshCw className={`h-4 w-4 ${isRegenerating ? "animate-spin" : ""}`} />
+              {isRegenerating ? "Gerando..." : "Gerar nova versão"}
+            </Button>
+          )}
+          <Button variant="outline" size="sm" onClick={handleCopy} className="gap-2">
+            {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+            {copied ? "Copiado!" : "Copiar tudo"}
+          </Button>
+        </div>
       </div>
 
       <div className="space-y-4">

@@ -80,7 +80,7 @@ export default function Index() {
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12 space-y-10">
         <BriefingForm onSubmit={handleGenerate} isLoading={isLoading} />
 
-        {briefing && <BriefingResult briefing={briefing} />}
+        {briefing && <BriefingResult briefing={briefing} onRegenerate={handleRegenerate} isRegenerating={isLoading} />}
       </main>
 
       {/* Footer */}
