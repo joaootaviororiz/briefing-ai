@@ -1,5 +1,7 @@
 # Campaign Catalyst
 
+🔗 Aplicação online: https://briefing-ai.lovable.app/
+
 ## Problema
 
 Times de marketing e agências perdem muito tempo criando briefings manualmente para campanhas.
@@ -85,6 +87,14 @@ Resultado:
 - Mais velocidade na entrega
 
 ---
+
+## Decisões do Projeto
+
+- Optei por uma interface simples para priorizar velocidade de uso
+- Foquei em resolver o problema de criação de briefing de forma prática
+- Usei IA para transformar inputs em estratégia acionável
+
+----
 
 ## Possíveis evoluções
 
