@@ -104,7 +104,3 @@ Resultado:
 - Exportação em PDF
 
 ---
-
-## Link da aplicação
-
-https://briefing-ai.lovable.app/
