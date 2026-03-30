@@ -9,10 +9,12 @@ import BriefingResult from "@/components/BriefingResult";
 export default function Index() {
   const [briefing, setBriefing] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [lastFormData, setLastFormData] = useState<BriefingFormData | null>(null);
 
   const handleGenerate = async (data: BriefingFormData) => {
     setIsLoading(true);
     setBriefing(null);
+    setLastFormData(data);
 
     try {
       const { data: result, error } = await supabase.functions.invoke("generate-briefing", {
@@ -30,6 +32,10 @@ export default function Index() {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleRegenerate = () => {
+    if (lastFormData) handleGenerate(lastFormData);
   };
 
   return (
